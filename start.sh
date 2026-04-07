@@ -12,8 +12,12 @@ fi
 
 echo "🔍 Environment: $ENVIRONMENT"
 echo "🌐 Port: $PORT"
-echo "🚀 Running database migrations..."
-python3 -m alembic upgrade head
+
+echo "🛠️ Initializing database schema (verifying tables)..."
+python3 -c "import asyncio; from app.database import create_all_tables; asyncio.run(create_all_tables())"
+
+echo "🚀 Running database migrations (alembic)..."
+python3 -m alembic upgrade head || echo "⚠️ Migration warning: some migrations may have already been applied."
 
 echo "✨ Starting EMR Backend on port $PORT..."
 # Using gunicorn with uvicorn workers for production

@@ -14,7 +14,7 @@ echo "🔍 Environment: $ENVIRONMENT"
 echo "🌐 Port: $PORT"
 
 echo "🛠️ Initializing database schema (verifying tables)..."
-python3 -c "import asyncio; from app.database import create_all_tables; asyncio.run(create_all_tables())"
+python3 -c "import asyncio; import app.models; from app.database import create_all_tables; asyncio.run(create_all_tables()); print('✅ Tables created successfully')"
 
 echo "🚀 Running database migrations (alembic)..."
 python3 -m alembic upgrade head || echo "⚠️ Migration warning: some migrations may have already been applied."

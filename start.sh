@@ -13,11 +13,11 @@ fi
 echo "🔍 Environment: $ENVIRONMENT"
 echo "🌐 Port: $PORT"
 echo "🚀 Running database migrations..."
-alembic upgrade head
+python3 -m alembic upgrade head
 
 echo "✨ Starting EMR Backend on port $PORT..."
 # Using gunicorn with uvicorn workers for production
-gunicorn app.main:app \
+python3 -m gunicorn app.main:app \
   --workers 4 \
   --worker-class uvicorn.workers.UvicornWorker \
   --bind 0.0.0.0:$PORT
